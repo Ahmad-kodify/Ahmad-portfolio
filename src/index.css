@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary-bg: #F5F3EE;
+  --color-surface: #FFFFFF;
+  --color-primary-text: #1A1A1A;
+  --color-secondary-text: #6E6D6A;
+  --color-muted-text: #7A7A7A;
+  --color-borders: #E7E2D9;
+  --color-hover-bg: #EFEAE2;
+  --color-accent: #C9A875;
+  --color-soft-shadow: rgba(0, 0, 0, 0.04);
+  
+  /* Dark mode contrast sections */
+  --color-dark-bg: #131313;
+  --color-dark-surface: #1C1C1C;
+  --color-dark-border: #2A2A2A;
+
+  --font-editorial: "Outfit", sans-serif;
+  --font-sans: "Inter", sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-primary-bg);
+    color: var(--color-primary-text);
+  }
+
+  body {
+    background-color: var(--color-primary-bg);
+    color: var(--color-primary-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-hover-bg);
+    color: var(--color-primary-text);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-editorial);
+    letter-spacing: -0.02em;
+  }
+
+  /* Spacing system rhythm: 120px desktop, 80px tablet, 60px mobile */
+  section {
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+
+  @media (max-width: 1024px) {
+    section {
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    section {
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+  }
+}
+
+/* Custom scrollbar styling in the luxury color palette */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-primary-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-borders);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted-text);
+}
+
+/* Refined luxury container */
+.luxury-container {
+  max-width: 1280px; /* Aligns with Templatoria centered layout */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+@media (max-width: 640px) {
+  .luxury-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
