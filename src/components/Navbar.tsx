@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import CtaButton from './CtaButton';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -24,8 +25,10 @@ export default function Navbar() {
     { name: 'Projects', href: '#projects' },
     { name: 'About', href: '#about' },
     { name: 'Experience', href: '#experience' },
+    { name: 'Process', href: '#process' },
     { name: 'Skills', href: '#skills' },
     { name: 'Certifications', href: '#certifications' },
+    { name: 'FAQ', href: '#faq' },
     { name: 'Contact', href: '#contact' },
   ];
 
@@ -33,8 +36,8 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
         isScrolled
-          ? 'bg-primary-bg/85 backdrop-blur-md border-borders py-4 shadow-soft'
-          : 'bg-transparent border-transparent py-6'
+          ? 'bg-primary-bg/85 backdrop-blur-md border-borders py-2.5 shadow-soft'
+          : 'bg-transparent border-transparent py-4'
       }`}
     >
       <div className="luxury-container flex items-center justify-between">
@@ -44,7 +47,7 @@ export default function Navbar() {
         </a>
 
         {/* Desktop Links with Framer Motion Underline hover */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-5 xl:gap-8">
           {navLinks.map((link) => (
             <a
               key={link.name}
@@ -68,19 +71,14 @@ export default function Navbar() {
         </div>
 
         {/* Desktop CTA with Rounded Corners */}
-        <div className="hidden md:block">
-          <a
-            href="#contact"
-            className="inline-flex items-center justify-center px-5 py-2.5 text-[12px] uppercase tracking-wider font-semibold border border-borders rounded-xl text-primary-text hover:bg-hover-bg transition-all duration-300 hover:border-primary-text"
-          >
-            Let's Build
-          </a>
+        <div className="hidden lg:block">
+          <CtaButton href="#contact" size="sm">Let's Build</CtaButton>
         </div>
 
         {/* Mobile Toggle */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="md:hidden text-primary-text hover:opacity-80 focus:outline-none"
+          className="lg:hidden text-primary-text hover:opacity-80 focus:outline-none"
           aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -97,7 +95,7 @@ export default function Navbar() {
               animate={{ opacity: 0.4 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="fixed inset-0 z-35 bg-black md:hidden"
+              className="fixed inset-0 z-35 bg-black lg:hidden"
             />
             {/* Drawer */}
             <motion.div
@@ -105,7 +103,7 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 right-0 z-40 w-full max-w-xs bg-primary-bg border-l border-borders p-8 shadow-xl md:hidden flex flex-col"
+              className="fixed inset-y-0 right-0 z-40 w-full max-w-xs bg-primary-bg border-l border-borders p-8 shadow-xl lg:hidden flex flex-col"
             >
               <div className="flex justify-between items-center mb-8">
                 <span className="text-lg font-bold font-editorial text-primary-text">Navigation</span>
@@ -118,7 +116,7 @@ export default function Navbar() {
                 </button>
               </div>
 
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-5 overflow-y-auto">
                 {navLinks.map((link) => (
                   <a
                     key={link.name}
@@ -129,13 +127,14 @@ export default function Navbar() {
                     {link.name}
                   </a>
                 ))}
-                <a
+                <CtaButton
                   href="#contact"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="mt-4 inline-flex items-center justify-center px-5 py-3 text-sm uppercase tracking-wider font-semibold border border-primary-text rounded-xl bg-primary-text text-primary-bg hover:bg-transparent hover:text-primary-text transition-all duration-300"
+                  fullWidth
+                  className="mt-4"
                 >
                   Let's Build
-                </a>
+                </CtaButton>
               </div>
             </motion.div>
           </>

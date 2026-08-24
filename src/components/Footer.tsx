@@ -1,4 +1,5 @@
-import { Linkedin, ArrowUp } from 'lucide-react';
+import { Linkedin, Instagram, Facebook, ArrowUp } from 'lucide-react';
+import { socialUrls } from '../data/socialProfiles';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -8,7 +9,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-[#2A2A2A] bg-dark-bg py-16 relative text-white">
+    <footer className="border-t border-[#2A2A2A] bg-dark-bg pt-16 pb-8 relative text-white">
       <div className="luxury-container">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           
@@ -37,13 +38,35 @@ export default function Footer() {
           <div className="flex items-center gap-4">
             {/* LinkedIn icon */}
             <a
-              href="https://linkedin.com/in/ahmads-contacts"
+              href={socialUrls.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 border border-[#2A2A2A] rounded-xl flex items-center justify-center text-stone-300 hover:text-white hover:border-white hover:bg-stone-800/40 transition-all duration-300"
               aria-label="LinkedIn Profile"
             >
               <Linkedin size={15} />
+            </a>
+
+            {/* Instagram icon */}
+            <a
+              href={socialUrls.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 border border-[#2A2A2A] rounded-xl flex items-center justify-center text-stone-300 hover:text-white hover:border-white hover:bg-stone-800/40 transition-all duration-300"
+              aria-label="Instagram Profile"
+            >
+              <Instagram size={15} />
+            </a>
+
+            {/* Facebook icon */}
+            <a
+              href={socialUrls.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 border border-[#2A2A2A] rounded-xl flex items-center justify-center text-stone-300 hover:text-white hover:border-white hover:bg-stone-800/40 transition-all duration-300"
+              aria-label="Facebook Profile"
+            >
+              <Facebook size={15} />
             </a>
 
             {/* Back to top */}
@@ -59,11 +82,8 @@ export default function Footer() {
         </div>
 
         {/* Outer sub-footer details */}
-        <div className="mt-12 pt-8 border-t border-[#2A2A2A] flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] font-mono text-stone-400">
+        <div className="mt-12 pt-8 border-t border-[#2A2A2A] text-center sm:text-left text-[11px] font-mono text-stone-400">
           <span>© {currentYear} MUHAMMAD AHMAD. ALL RIGHTS RESERVED.</span>
-          <span className="tracking-wide text-center sm:text-right">
-            DESIGN INSPIRED BY TEMPLATORIA • BUILT WITH REACT & TAILWIND
-          </span>
         </div>
 
       </div>

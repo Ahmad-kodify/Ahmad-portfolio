@@ -24,7 +24,7 @@ export default function FAQ() {
     },
     {
       q: 'How can we initiate a project alignment call?',
-      a: 'Simply fill out the message form in the Contact section or email me directly at ahmads.contacts@gmail.com. I usually respond within 24 hours to schedule a short discovery call.',
+      a: 'Simply fill out the message form in the Contact section or email me directly at ahmadkodify@gmail.com. I usually respond within 24 hours to schedule a short discovery call.',
     },
   ];
 

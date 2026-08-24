@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { CheckCircle2, ShoppingBag, Search, Calendar, Star, Users, Briefcase, Activity } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CurveDivider from './CurveDivider';
+import CtaButton from './CtaButton';
 
 // TypeScript interfaces for project details
 interface ProjectData {
@@ -435,23 +436,18 @@ function ProjectCard({ project, onVisible }: ProjectCardProps) {
       </p>
 
       {/* Equal Style Action Buttons */}
-      <div className="flex flex-row gap-4 pt-4 max-w-md">
-        <a
-          href={project.liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex-1 inline-flex items-center justify-center px-6 py-3.5 text-xs font-bold uppercase tracking-wider bg-primary-text text-white rounded-full hover:bg-accent transition-all duration-300 shadow-soft"
-        >
+      <div className="flex flex-row flex-wrap gap-3 pt-4">
+        <CtaButton href={project.liveUrl} target="_blank" rel="noopener noreferrer">
           View Project
-        </a>
-        <a
+        </CtaButton>
+        <CtaButton
           href={project.liveUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 inline-flex items-center justify-center px-6 py-3.5 text-xs font-bold uppercase tracking-wider bg-primary-text text-white rounded-full hover:bg-accent transition-all duration-300 shadow-soft"
+          variant="outline"
         >
           Live Preview
-        </a>
+        </CtaButton>
       </div>
     </div>
   );

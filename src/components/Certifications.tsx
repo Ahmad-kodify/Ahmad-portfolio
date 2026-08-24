@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Award, Eye, X, ZoomIn } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import CtaButton from './CtaButton';
 
 export default function Certifications() {
   const [isZoomed, setIsZoomed] = useState(false);
@@ -42,13 +43,12 @@ export default function Certifications() {
               </p>
 
               <div className="pt-2">
-                <button
+                <CtaButton
                   onClick={() => setIsZoomed(true)}
-                  className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-semibold text-primary-text hover:text-accent transition-colors duration-300"
+                  icon={<Eye size={17} strokeWidth={2.2} />}
                 >
                   View Full Document
-                  <Eye size={14} />
-                </button>
+                </CtaButton>
               </div>
             </div>
           </motion.div>

@@ -1,6 +1,7 @@
-import { ArrowRight, Linkedin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import CurveDivider from './CurveDivider';
+import CtaButton from './CtaButton';
+import SocialRail from './SocialRail';
 
 export default function Hero() {
   const containerVariants = {
@@ -161,54 +162,15 @@ Full-Stack web applications and SaaS platforms built with Laravel and React, sup
 
           {/* Centered CTA Buttons (Oversized Pills, fully inside 100vh) */}
           <motion.div variants={itemVariants} className="flex flex-row justify-center gap-4 relative z-10">
-            <a
-              href="#projects"
-              className="group inline-flex items-center gap-2 px-9 py-4.5 text-[13px] tracking-wide font-semibold bg-primary-text text-primary-bg hover:bg-accent hover:text-primary-text transition-all duration-300 rounded-xl shadow-soft"
-            >
-              Browse Projects
-              <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform duration-300" />
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center px-9 py-4.5 text-[13px] tracking-wide font-semibold bg-white border border-borders text-primary-text hover:bg-hover-bg hover:border-primary-text transition-all duration-300 rounded-xl shadow-soft"
-            >
-              Let's Build
-            </a>
+            <CtaButton href="#projects">Browse Projects</CtaButton>
+            <CtaButton href="#contact" variant="outline">Let's Build</CtaButton>
           </motion.div>
 
         </motion.div>
       </div>
 
-      {/* Bottom Left Social Icons (Raw unbordered SVGs matching Templatoria) */}
-      <motion.div
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.8, duration: 0.8 }}
-        className="absolute left-8 bottom-8 md:left-12 md:bottom-12 z-30 flex flex-col gap-6 hidden sm:flex select-none"
-      >
-        {/* Twitter / X */}
-        <a
-          href="https://twitter.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-stone-400 hover:text-primary-text transition-colors duration-300"
-          aria-label="Twitter (X)"
-        >
-          <svg className="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-          </svg>
-        </a>
-        {/* LinkedIn */}
-        <a
-          href="https://linkedin.com/in/ahmads-contacts"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-stone-400 hover:text-primary-text transition-colors duration-300"
-          aria-label="LinkedIn"
-        >
-          <Linkedin size={18} />
-        </a>
-      </motion.div>
+      {/* Bottom Left Social Rail with hover/tap profile previews */}
+      <SocialRail />
 
       <CurveDivider />
     </section>
