@@ -26,4 +26,4 @@ dist-ssr
 # Local env & database
 .env
 .env.local
-data/
+/data/
