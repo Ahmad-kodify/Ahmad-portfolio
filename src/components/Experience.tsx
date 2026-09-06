@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 export default function Experience() {
   const experiences = [
     {
-      role: 'Trainee Software Engineer',
+      role: 'Junior Software Engineer',
       company: 'NumDesk Pvt Ltd',
       duration: 'Nov 2024 - Present',
       location: 'Pakistan',
@@ -15,19 +15,6 @@ export default function Experience() {
         'Collaborated on backend APIs and integrations using Node.js and WebSocket frameworks.',
       ],
       tech: ['React.js', 'Node.js', 'Inertia.js', 'WebSockets', 'Tailwind CSS'],
-    },
-    {
-      role: 'MERN Stack Engineer (Project-based)',
-      company: 'Tayfa.pk',
-      duration: 'May 2024 - Oct 2024',
-      location: 'Pakistan (Remote)',
-      details: [
-        'Engineered components for a multi-vendor marketplace platform serving local sellers.',
-        'Designed intuitive seller dashboards, checkout workflows, and order-tracking pages.',
-        'Built full-stack product management systems with rich media support and CRUD flows.',
-        'Managed database designs in MongoDB for flexible storage and optimized response times.',
-      ],
-      tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'Redux Toolkit'],
     },
     {
       role: 'Web Development Intern',

@@ -20,9 +20,18 @@ export default function SocialRail() {
   const [activePlatform, setActivePlatform] = useState<SocialPlatform | null>(null);
   const [placement, setPlacement] = useState<Placement>('right');
   const [isTouch, setIsTouch] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const closeTimer = useRef<number | null>(null);
   const railRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
+
+  // Mirrors the navbar: docked to the top edge at rest, floating pill on scroll.
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   // Pointer capability decides the whole interaction model (hover vs tap).
   useEffect(() => {
@@ -115,10 +124,14 @@ export default function SocialRail() {
     <>
       <motion.div
         ref={railRef}
-        initial={{ opacity: 0, x: -10 }}
+        initial={{ opacity: 0, x: -16 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.8, duration: 0.8 }}
-        className="absolute left-8 bottom-8 md:left-12 md:bottom-12 z-30 flex flex-col gap-6 hidden sm:flex select-none"
+        transition={{ delay: 0.4, duration: 0.6 }}
+        className={`fixed left-0 top-1/3 z-50 hidden sm:flex flex-col items-center gap-1.5 p-2 text-white select-none transition-all duration-500 ${
+          isScrolled
+            ? 'ml-1.5 rounded-full bg-primary-text/95 backdrop-blur-md ring-1 ring-white/10 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.45)]'
+            : 'ml-0 rounded-l-none rounded-r-[20px] bg-primary-text shadow-[0_18px_36px_-16px_rgba(0,0,0,0.45)]'
+        }`}
       >
         {socialProfiles.map((data) => (
           <SocialRailItem
@@ -180,12 +193,10 @@ function SocialRailItem({
   const Icon = theme.icon;
   const panelId = `social-preview-${data.platform}`;
 
-  // Negative margin keeps the icons exactly where they were while giving the
-  // trigger a comfortably larger hit area.
   const triggerClass = [
-    '-m-2 block rounded-xl p-2 transition-colors duration-300',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-text/40 focus-visible:ring-offset-2 focus-visible:ring-offset-primary-bg',
-    isActive ? `bg-hover-bg ${theme.iconActive}` : 'text-stone-400 hover:text-primary-text',
+    'block rounded-full p-2 transition-colors duration-300',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50',
+    isActive ? `bg-white/10 ${theme.iconActive}` : 'text-white/60 hover:text-white hover:bg-white/10',
   ].join(' ');
 
   return (
@@ -230,14 +241,14 @@ function SocialRailItem({
             data-social-preview
             {...motionProps}
             // `pl-3` is the invisible bridge that keeps hover alive across the gap.
-            className="absolute bottom-0 left-full z-40 pl-3"
+            className="absolute top-0 left-full z-40 pl-3"
             onMouseEnter={isTouch ? undefined : onCancelClose}
             onMouseLeave={isTouch ? undefined : onScheduleClose}
           >
             <div className="relative">
               <div
                 aria-hidden="true"
-                className="absolute -left-[5px] bottom-3 h-2.5 w-2.5 rotate-45 border-b border-l border-borders bg-surface"
+                className="absolute -left-[5px] top-3 h-2.5 w-2.5 rotate-45 border-b border-l border-borders bg-surface"
               />
               <SocialProfileCard data={data} onClose={isTouch ? onClose : undefined} />
             </div>

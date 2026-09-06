@@ -101,3 +101,42 @@
     padding-right: 1.5rem;
   }
 }
+
+/* Industries marquee — transform-only animation, duplicated content makes
+   the -50% translate loop seamless. */
+@keyframes industries-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.industries-track {
+  animation: industries-marquee 35s linear infinite;
+  will-change: transform;
+}
+
+.industries-marquee:hover .industries-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .industries-track {
+    animation: none;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .industries-track ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.5rem;
+  }
+
+  /* The duplicate copy exists only to make the loop seamless. */
+  .industries-track ul[aria-hidden='true'] {
+    display: none;
+  }
+}

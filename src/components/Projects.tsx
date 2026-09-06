@@ -1,49 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
-import { CheckCircle2, ShoppingBag, Search, Calendar, Star, Users, Briefcase, Activity } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { CheckCircle2, ShoppingBag, Search, Calendar, Star, Users, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CurveDivider from './CurveDivider';
 import CtaButton from './CtaButton';
-
-// TypeScript interfaces for project details
-interface ProjectData {
-  id: string;
-  category: string;
-  name: string;
-  badge: string | null;
-  description: string;
-  liveUrl: string;
-}
+import { projects } from '../data/projects';
+import type { ProjectData } from '../data/projects';
 
 export default function Projects() {
   const [activeProjectId, setActiveProjectId] = useState<string>('simplifyapps');
   const sectionRef = useRef<HTMLDivElement>(null);
-
-  const projects: ProjectData[] = [
-    {
-      id: 'simplifyapps',
-      category: 'Enterprise Software',
-      name: 'SimplifyApps ERP',
-      badge: 'Featured',
-      description: 'A complete enterprise resource planning platform built for real business operations. Covers inventory, HR, sales, and reporting modules.',
-      liveUrl: '#',
-    },
-    {
-      id: 'tayfa',
-      category: 'E-Commerce',
-      name: 'Tayfa.pk',
-      badge: 'Live',
-      description: 'A full-stack multi-vendor e-commerce platform handling real transactions for real customers built with Laravel and React.',
-      liveUrl: 'https://tayfa.pk',
-    },
-    {
-      id: 'schuul',
-      category: 'EdTech',
-      name: 'Schuul.com',
-      badge: null,
-      description: 'A live tutoring marketplace with Stripe Connect, real-time scheduling, and multi-role user management.',
-      liveUrl: '#',
-    },
-  ];
 
   return (
     <section ref={sectionRef} id="projects" className="border-t border-borders bg-white relative py-20 lg:py-32">
@@ -104,8 +70,60 @@ interface MonitorFrameProps {
 }
 
 function MonitorFrame({ activeProjectId }: MonitorFrameProps) {
+  const activeProject = projects.find((p) => p.id === activeProjectId);
+  const shots = activeProject?.screenshots ?? [];
+  const [imageIndex, setImageIndex] = useState(0);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+
+  // New project in focus — restart its gallery from the first shot.
+  useEffect(() => {
+    setImageIndex(0);
+    setIsLightboxOpen(false);
+  }, [activeProjectId]);
+
+  const safeIndex = shots.length > 0 ? imageIndex % shots.length : 0;
+  const goPrev = () => setImageIndex((i) => (i - 1 + shots.length) % shots.length);
+  const goNext = () => setImageIndex((i) => (i + 1) % shots.length);
+
+  // Escape closes the zoom overlay.
+  useEffect(() => {
+    if (!isLightboxOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsLightboxOpen(false);
+      if (event.key === 'ArrowLeft' && shots.length > 1) goPrev();
+      if (event.key === 'ArrowRight' && shots.length > 1) goNext();
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [isLightboxOpen, shots.length]);
+
+  const arrowClass =
+    'absolute top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-primary-text text-white shadow-[0_10px_24px_-8px_rgba(0,0,0,0.5)] ring-1 ring-white/15 transition-all duration-300 hover:bg-accent hover:text-primary-text hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent cursor-pointer';
+
   return (
-    <div className="w-full max-w-[460px] md:max-w-[500px] mx-auto flex flex-col items-center">
+    <div className="w-full max-w-[460px] md:max-w-[500px] mx-auto flex flex-col items-center relative">
+      {/* Premium gallery arrows flanking the monitor */}
+      {shots.length > 1 && (
+        <>
+          <button
+            type="button"
+            onClick={goPrev}
+            aria-label="Previous screenshot"
+            className={`${arrowClass} -left-3 md:-left-14`}
+          >
+            <ChevronLeft size={20} strokeWidth={2.4} />
+          </button>
+          <button
+            type="button"
+            onClick={goNext}
+            aria-label="Next screenshot"
+            className={`${arrowClass} -right-3 md:-right-14`}
+          >
+            <ChevronRight size={20} strokeWidth={2.4} />
+          </button>
+        </>
+      )}
+
       {/* Mockup Monitor Screen Frame */}
       <div className="w-full aspect-[16/10] bg-neutral-900 border-[10px] md:border-[14px] border-neutral-950 rounded-2xl shadow-2xl relative overflow-hidden flex flex-col">
         {/* Top Browser Bar */}
@@ -116,9 +134,7 @@ function MonitorFrame({ activeProjectId }: MonitorFrameProps) {
             <span className="w-2 h-2 rounded-full bg-green-500/80"></span>
           </div>
           <div className="text-[9px] text-stone-500 font-mono tracking-wider truncate max-w-[200px]">
-            {activeProjectId === 'simplifyapps' && 'simplifyapps.io/dashboard'}
-            {activeProjectId === 'tayfa' && 'tayfa.pk/shop'}
-            {activeProjectId === 'schuul' && 'schuul.com/tutors'}
+            {activeProject?.mockupUrl}
           </div>
           <div className="w-10"></div>
         </div>
@@ -134,9 +150,32 @@ function MonitorFrame({ activeProjectId }: MonitorFrameProps) {
               transition={{ duration: 0.35, ease: 'easeInOut' }}
               className="absolute inset-0 w-full h-full"
             >
-              {activeProjectId === 'simplifyapps' && <ErpMockup />}
-              {activeProjectId === 'tayfa' && <TayfaMockup />}
-              {activeProjectId === 'schuul' && <SchuulMockup />}
+              {shots.length > 0 ? (
+                <button
+                  type="button"
+                  onClick={() => setIsLightboxOpen(true)}
+                  aria-label={`Zoom ${activeProject?.name} screenshot`}
+                  className="block w-full h-full cursor-zoom-in focus-visible:outline-none"
+                >
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={shots[safeIndex]}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.25, ease: 'easeInOut' }}
+                      className="w-full h-full"
+                    >
+                      <ScreenshotMockup src={shots[safeIndex]} name={activeProject?.name ?? ''} />
+                    </motion.div>
+                  </AnimatePresence>
+                </button>
+              ) : (
+                <>
+                  {activeProjectId === 'tayfa' && <TayfaMockup />}
+                  {activeProjectId === 'schuul' && <SchuulMockup />}
+                </>
+              )}
             </motion.div>
           </AnimatePresence>
         </div>
@@ -157,6 +196,72 @@ function MonitorFrame({ activeProjectId }: MonitorFrameProps) {
         {/* Soft natural floor shadow cast by monitor and stand */}
         <div className="w-56 h-10 bg-black/15 rounded-full blur-lg -mt-3.5 z-[-1]"></div>
       </div>
+
+      {/* Zoom lightbox — portaled to <body> so no ancestor stacking context
+          (sticky column z-10) can trap it below the fixed navbar. */}
+      {createPortal(
+      <AnimatePresence>
+        {isLightboxOpen && shots.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={() => setIsLightboxOpen(false)}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4 md:p-10 cursor-zoom-out"
+          >
+            <button
+              type="button"
+              onClick={() => setIsLightboxOpen(false)}
+              aria-label="Close zoomed screenshot"
+              className="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white ring-1 ring-white/20 transition-colors hover:bg-white/25 cursor-pointer"
+            >
+              <X size={18} />
+            </button>
+
+            {shots.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    goPrev();
+                  }}
+                  aria-label="Previous screenshot"
+                  className="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white ring-1 ring-white/20 transition-colors hover:bg-accent hover:text-primary-text cursor-pointer"
+                >
+                  <ChevronLeft size={22} strokeWidth={2.4} />
+                </button>
+                <button
+                  type="button"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    goNext();
+                  }}
+                  aria-label="Next screenshot"
+                  className="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white ring-1 ring-white/20 transition-colors hover:bg-accent hover:text-primary-text cursor-pointer"
+                >
+                  <ChevronRight size={22} strokeWidth={2.4} />
+                </button>
+              </>
+            )}
+
+            <motion.img
+              key={shots[safeIndex]}
+              src={shots[safeIndex]}
+              alt={`${activeProject?.name} screenshot enlarged`}
+              initial={{ scale: 0.92, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(event) => event.stopPropagation()}
+              className="max-h-full max-w-full rounded-xl shadow-2xl ring-1 ring-white/15 object-contain cursor-default"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>,
+      document.body,
+      )}
     </div>
   );
 }
@@ -165,73 +270,18 @@ function MonitorFrame({ activeProjectId }: MonitorFrameProps) {
    PROJECT MOCKUP TEMPLATES (INLINE REACT)
    ========================================== */
 
-// 1. SimplifyApps ERP Dashboard Mockup
-function ErpMockup() {
+// 0. Client website screenshot inside the browser frame.
+//    Drop the referenced images into `public/` (ads.png, arascow.png, ...).
+function ScreenshotMockup({ src, name }: { src: string; name: string }) {
   return (
-    <div className="w-full h-full flex bg-neutral-900 text-stone-100 font-sans text-[10px]">
-      {/* Left Sidebar */}
-      <div className="w-1/4 bg-neutral-950 border-r border-neutral-800 p-3 flex flex-col gap-4">
-        <div className="flex items-center gap-1.5 pb-2 border-b border-neutral-800">
-          <Briefcase className="w-3.5 h-3.5 text-accent" />
-          <span className="font-bold tracking-tight text-white">Simplify ERP</span>
-        </div>
-        <div className="space-y-1.5 flex-1">
-          <div className="bg-neutral-800 text-accent font-medium px-2 py-1 rounded flex items-center gap-1.5">
-            <Activity className="w-3 h-3" /> Dashboard
-          </div>
-          <div className="text-stone-400 px-2 py-1 rounded">Inventory</div>
-          <div className="text-stone-400 px-2 py-1 rounded">HR Logs</div>
-          <div className="text-stone-400 px-2 py-1 rounded">Sales Rep</div>
-        </div>
-        <div className="h-4 bg-neutral-800 rounded w-full opacity-30"></div>
-      </div>
-
-      {/* Main Content Area */}
-      <div className="flex-1 p-4 bg-neutral-900 flex flex-col gap-4 overflow-hidden">
-        {/* Header */}
-        <div className="flex justify-between items-center pb-2 border-b border-neutral-800">
-          <span className="font-semibold text-white">Enterprise Systems Overview</span>
-          <div className="flex gap-2">
-            <div className="w-3.5 h-3.5 bg-neutral-800 rounded-full"></div>
-            <div className="w-12 h-3.5 bg-neutral-800 rounded"></div>
-          </div>
-        </div>
-
-        {/* Stats Row */}
-        <div className="grid grid-cols-3 gap-2">
-          <div className="bg-neutral-950 p-2 border border-neutral-800 rounded-lg">
-            <div className="text-stone-500">Live Inventory</div>
-            <div className="text-[12px] font-bold text-white mt-0.5">1,240 <span className="text-[8px] text-green-400 font-normal">+4%</span></div>
-          </div>
-          <div className="bg-neutral-950 p-2 border border-neutral-800 rounded-lg">
-            <div className="text-stone-500">Active Staff</div>
-            <div className="text-[12px] font-bold text-white mt-0.5">42 Units</div>
-          </div>
-          <div className="bg-neutral-950 p-2 border border-neutral-800 rounded-lg">
-            <div className="text-stone-500">Today Sales</div>
-            <div className="text-[12px] font-bold text-accent mt-0.5">$12,450</div>
-          </div>
-        </div>
-
-        {/* System Logs */}
-        <div className="flex-1 bg-neutral-950 border border-neutral-800 rounded-lg p-2.5 flex flex-col gap-2">
-          <span className="font-semibold text-stone-300 border-b border-neutral-800 pb-1">Real-time Operations log</span>
-          <div className="space-y-1.5 overflow-hidden">
-            <div className="flex justify-between text-stone-400 font-mono text-[8px] py-0.5 border-b border-neutral-800/40">
-              <span>DB_REFRESH_INVENTORY</span>
-              <span className="text-green-400">SUCCESS</span>
-            </div>
-            <div className="flex justify-between text-stone-400 font-mono text-[8px] py-0.5 border-b border-neutral-800/40">
-              <span>SALES_PIPELINE_SYNC</span>
-              <span className="text-green-400">SYNCED</span>
-            </div>
-            <div className="flex justify-between text-stone-400 font-mono text-[8px] py-0.5">
-              <span>HR_PAYROLL_QUEUE</span>
-              <span className="text-amber-400">PENDING</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="w-full h-full bg-stone-100 relative">
+      <img
+        src={src}
+        alt={`${name} website screenshot`}
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-0 w-full h-full object-cover object-top"
+      />
     </div>
   );
 }
@@ -407,11 +457,16 @@ function ProjectCard({ project, onVisible }: ProjectCardProps) {
       className="min-h-[75vh] lg:min-h-screen flex flex-col justify-center py-16 space-y-6 scroll-mt-24"
       id={`project-${project.id}`}
     >
-      {/* Category Pill/Badge */}
-      <div>
+      {/* Category Pill/Badge + optional location tag */}
+      <div className="flex items-center gap-3 flex-wrap">
         <span className="inline-flex px-3 py-1 text-xs font-semibold text-secondary-text bg-stone-100 rounded-full border border-borders/50">
           {project.category}
         </span>
+        {project.country && (
+          <span className="text-xs text-muted-text font-medium tracking-wide">
+            {project.country}
+          </span>
+        )}
       </div>
 
       {/* Project Name and Optional Badge */}
@@ -435,19 +490,49 @@ function ProjectCard({ project, onVisible }: ProjectCardProps) {
         {project.description}
       </p>
 
-      {/* Equal Style Action Buttons */}
+      {/* Tech chips (client websites) */}
+      {project.tech && project.tech.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {project.tech.map((item) => (
+            <span
+              key={item}
+              className="px-3 py-1 text-xs font-medium text-secondary-text bg-stone-100 rounded-full border border-borders/50"
+            >
+              {item}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* Equal Style Action Buttons — data-driven links replace the defaults when present */}
       <div className="flex flex-row flex-wrap gap-3 pt-4">
-        <CtaButton href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-          View Project
-        </CtaButton>
-        <CtaButton
-          href={project.liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          variant="outline"
-        >
-          Live Preview
-        </CtaButton>
+        {project.links && project.links.length > 0 ? (
+          project.links.map((link, index) => (
+            <CtaButton
+              key={link.url}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant={index === 0 ? 'solid' : 'outline'}
+            >
+              {link.label}
+            </CtaButton>
+          ))
+        ) : (
+          <>
+            <CtaButton href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+              View Project
+            </CtaButton>
+            <CtaButton
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="outline"
+            >
+              Live Preview
+            </CtaButton>
+          </>
+        )}
       </div>
     </div>
   );

@@ -21,12 +21,12 @@ export const profile = {
    *   image: avatar,
    * Leave it empty to fall back to the elegant monogram avatar.
    */
-  image: '' as string,
+  image: '/profile.webp' as string,
   /** Fallback shown when `image` is empty. */
   initials: 'MA',
 };
 
-export type SocialPlatform = 'instagram' | 'facebook' | 'linkedin';
+export type SocialPlatform = 'instagram' | 'facebook' | 'linkedin' | 'upwork';
 
 export interface SocialProfile {
   platform: SocialPlatform;
@@ -78,6 +78,17 @@ export const socialProfiles: SocialProfile[] = [
     tags: ['Laravel', 'React', 'Next.js', 'TypeScript'],
     profileUrl: 'https://www.linkedin.com/in/binauf/',
     ctaLabel: 'View LinkedIn Profile',
+  },
+  {
+    platform: 'upwork',
+    label: 'Upwork',
+    name: profile.fullName,
+    username: 'Muhammad A.',
+    role: 'Freelance Full-Stack Developer',
+    bio: 'Available for freelance projects — web applications, SaaS platforms and APIs.',
+    tags: ['Laravel', 'React', 'Node.js', 'SaaS'],
+    profileUrl: 'https://www.upwork.com/freelancers/~0150552e29d5b76699',
+    ctaLabel: 'Hire Me on Upwork',
   },
 ];
 

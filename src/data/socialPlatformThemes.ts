@@ -1,5 +1,6 @@
 import { Instagram, Facebook, Linkedin } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import UpworkIcon from '../components/icons/UpworkIcon';
 import type { SocialPlatform } from './socialProfiles';
 
 /**
@@ -47,5 +48,13 @@ export const platformThemes: Record<SocialPlatform, PlatformTheme> = {
     cta: `${INSTAGRAM_GRADIENT} text-white hover:opacity-90`,
     badge: 'text-[#C13584]',
     iconActive: 'text-[#C13584]',
+  },
+  upwork: {
+    icon: UpworkIcon,
+    accentBar: 'bg-[#14A800]',
+    avatarRing: 'ring-2 ring-[#14A800]/25',
+    cta: 'bg-[#14A800] text-white hover:bg-[#108600]',
+    badge: 'text-[#14A800]',
+    iconActive: 'text-[#6FDA44]',
   },
 };

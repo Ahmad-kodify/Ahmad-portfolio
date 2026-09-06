@@ -1,5 +1,6 @@
 import { Linkedin, Instagram, Facebook, ArrowUp } from 'lucide-react';
 import { socialUrls } from '../data/socialProfiles';
+import UpworkIcon from './icons/UpworkIcon';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -27,7 +28,6 @@ export default function Footer() {
           <div className="flex flex-wrap justify-center gap-6 text-[12px] font-medium text-stone-300">
             <a href="#home" className="hover:text-accent transition-colors duration-300">Home</a>
             <a href="#projects" className="hover:text-accent transition-colors duration-300">Projects</a>
-            <a href="#about" className="hover:text-accent transition-colors duration-300">About</a>
             <a href="#experience" className="hover:text-accent transition-colors duration-300">Experience</a>
             <a href="#skills" className="hover:text-accent transition-colors duration-300">Skills</a>
             <a href="#certifications" className="hover:text-accent transition-colors duration-300">Certifications</a>
@@ -67,6 +67,17 @@ export default function Footer() {
               aria-label="Facebook Profile"
             >
               <Facebook size={15} />
+            </a>
+
+            {/* Upwork icon */}
+            <a
+              href={socialUrls.upwork}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 border border-[#2A2A2A] rounded-xl flex items-center justify-center text-stone-300 hover:text-white hover:border-white hover:bg-stone-800/40 transition-all duration-300"
+              aria-label="Upwork Profile"
+            >
+              <UpworkIcon size={15} />
             </a>
 
             {/* Back to top */}

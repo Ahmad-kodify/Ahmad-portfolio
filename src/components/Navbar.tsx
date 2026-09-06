@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CtaButton from './CtaButton';
 
@@ -22,68 +22,88 @@ export default function Navbar() {
 
   const navLinks = [
     { name: 'Home', href: '#home' },
+    { name: 'Services', href: '#services' },
     { name: 'Projects', href: '#projects' },
-    { name: 'About', href: '#about' },
+    { name: 'Skills', href: '#skills' },
+    { name: 'Clients', href: '#clients' },
     { name: 'Experience', href: '#experience' },
     { name: 'Process', href: '#process' },
-    { name: 'Skills', href: '#skills' },
     { name: 'Certifications', href: '#certifications' },
     { name: 'FAQ', href: '#faq' },
     { name: 'Contact', href: '#contact' },
   ];
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
-        isScrolled
-          ? 'bg-primary-bg/85 backdrop-blur-md border-borders py-2.5 shadow-soft'
-          : 'bg-transparent border-transparent py-4'
-      }`}
-    >
-      <div className="luxury-container flex items-center justify-between">
-        {/* Logo */}
-        <a href="#home" className="text-xl font-bold tracking-tight font-editorial text-primary-text hover:opacity-85 transition-opacity">
-          MA<span className="text-accent">/</span>
-        </a>
-
-        {/* Desktop Links with Framer Motion Underline hover */}
-        <div className="hidden lg:flex items-center gap-5 xl:gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onMouseEnter={() => setHoveredLink(link.name)}
-              onMouseLeave={() => setHoveredLink(null)}
-              className="text-[13px] tracking-wide text-secondary-text font-medium hover:text-primary-text transition-colors duration-300 relative py-1"
-            >
-              {link.name}
-              {hoveredLink === link.name && (
-                <motion.span
-                  layoutId="nav-underline"
-                  className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-accent"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                />
-              )}
-            </a>
-          ))}
-        </div>
-
-        {/* Desktop CTA with Rounded Corners */}
-        <div className="hidden lg:block">
-          <CtaButton href="#contact" size="sm">Let's Build</CtaButton>
-        </div>
-
-        {/* Mobile Toggle */}
-        <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="lg:hidden text-primary-text hover:opacity-80 focus:outline-none"
-          aria-label="Toggle menu"
+    <>
+      <motion.nav
+        initial={{ y: -24, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: 'spring', stiffness: 260, damping: 28 }}
+        className="fixed inset-x-0 top-0 z-50 flex justify-center px-4"
+      >
+        <div
+          className={`relative flex items-center gap-1 text-white transition-all duration-500 p-2 pr-2 xl:pl-3 ${
+            isScrolled
+              ? 'mt-1.5 rounded-full bg-primary-text/95 backdrop-blur-md ring-1 ring-white/10 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.45)]'
+              : 'mt-0 rounded-t-none rounded-b-[26px] bg-primary-text shadow-[0_18px_36px_-16px_rgba(0,0,0,0.45)]'
+          }`}
         >
-          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </div>
+          {/* Logo */}
+          <a
+            href="#home"
+            className="flex items-center gap-2.5 shrink-0 pl-1 pr-2 hover:opacity-85 transition-opacity"
+          >
+            <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-gradient-to-br from-accent to-[#a8874f] text-[12px] font-bold text-primary-text shadow-inner">
+              MA
+            </span>
+            <span className="text-[15px] font-bold tracking-tight font-editorial">
+              Ahmad<span className="text-accent">.</span>
+            </span>
+          </a>
+
+          {/* Desktop links — pill highlight follows the hovered link */}
+          <div className="hidden xl:flex items-center">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                onMouseEnter={() => setHoveredLink(link.name)}
+                onMouseLeave={() => setHoveredLink(null)}
+                className="relative px-2.5 py-2 text-[13px] font-medium tracking-wide text-white/65 hover:text-white transition-colors duration-300"
+              >
+                {hoveredLink === link.name && (
+                  <motion.span
+                    layoutId="nav-pill"
+                    className="absolute inset-0 rounded-full bg-white/10"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className="relative">{link.name}</span>
+              </a>
+            ))}
+          </div>
+
+          {/* Desktop CTA — white pill, mirrors the reference button */}
+          <a
+            href="#contact"
+            className="group hidden xl:inline-flex shrink-0 items-center gap-1.5 rounded-full bg-white pl-4 pr-1.5 py-1.5 ml-1 text-[13px] font-semibold text-primary-text transition-colors duration-300 hover:bg-accent"
+          >
+            Let's Build
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary-text text-white transition-transform duration-300 group-hover:rotate-45">
+              <ArrowUpRight size={13} strokeWidth={2.4} />
+            </span>
+          </a>
+
+          {/* Mobile toggle */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="xl:hidden flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors focus:outline-none"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
+        </div>
+      </motion.nav>
 
       {/* Mobile Drawer (Framer Motion Animated) */}
       <AnimatePresence>
@@ -95,7 +115,7 @@ export default function Navbar() {
               animate={{ opacity: 0.4 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="fixed inset-0 z-35 bg-black lg:hidden"
+              className="fixed inset-0 z-35 bg-black xl:hidden"
             />
             {/* Drawer */}
             <motion.div
@@ -103,7 +123,7 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 right-0 z-40 w-full max-w-xs bg-primary-bg border-l border-borders p-8 shadow-xl lg:hidden flex flex-col"
+              className="fixed inset-y-0 right-0 z-40 w-full max-w-xs bg-primary-bg border-l border-borders p-8 shadow-xl xl:hidden flex flex-col"
             >
               <div className="flex justify-between items-center mb-8">
                 <span className="text-lg font-bold font-editorial text-primary-text">Navigation</span>
@@ -140,6 +160,6 @@ export default function Navbar() {
           </>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 }
