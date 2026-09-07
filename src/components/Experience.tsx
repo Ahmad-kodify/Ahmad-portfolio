@@ -87,7 +87,7 @@ export default function Experience() {
 
                 {/* Styled experience card */}
                 <motion.div
-                  whileHover={{ y: -4, boxShadow: '0 10px 30px rgba(0,0,0,0.04)' }}
+                  whileHover={{ y: -4, boxShadow: '0 10px 30px rgba(15,15,15,0.04)' }}
                   className="bg-white border border-borders p-8 rounded-2xl space-y-4 transition-all duration-300 group-hover:border-accent"
                 >
                   {/* Metadata header */}

@@ -83,7 +83,7 @@ export default function Testimonials() {
                   delay: Math.min(index, 5) * 0.06,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                className="group flex flex-col rounded-2xl border border-borders bg-surface p-6 shadow-soft transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-[3px] hover:border-borders/100 hover:shadow-[0_14px_34px_-18px_rgba(0,0,0,0.22)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+                className="group flex flex-col rounded-2xl border border-borders bg-surface p-6 shadow-soft transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-[3px] hover:border-borders/100 hover:shadow-[0_14px_34px_-18px_rgba(15,15,15,0.22)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
               >
                 <Quote size={20} className="text-accent" aria-hidden="true" />
 

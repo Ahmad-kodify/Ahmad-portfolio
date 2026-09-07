@@ -84,10 +84,10 @@ export default function ContactForm() {
   }
 
   const fieldBase =
-    'w-full rounded-xl border bg-white px-4 py-3 text-sm text-primary-text placeholder-stone-300 transition-colors focus:outline-none focus:ring-0';
+    'w-full rounded-xl border bg-white px-4 py-3 text-sm text-primary-text placeholder-muted-text transition-colors focus:outline-none focus:ring-0';
 
   const fieldClass = (key: keyof FormState) =>
-    `${fieldBase} ${errors[key] ? 'border-red-300 focus:border-red-500' : 'border-borders focus:border-primary-text'}`;
+    `${fieldBase} ${errors[key] ? 'border-accent/40 focus:border-accent' : 'border-borders focus:border-primary-text'}`;
 
   const labelClass = 'mb-2 block text-[10px] uppercase tracking-wider font-semibold text-muted-text';
 
@@ -143,7 +143,7 @@ export default function ContactForm() {
             className={fieldClass('name')}
           />
           {errors.name && (
-            <p id="contact-name-error" className="mt-1.5 text-xs text-red-600">
+            <p id="contact-name-error" className="mt-1.5 text-xs text-accent">
               {errors.name}
             </p>
           )}
@@ -166,7 +166,7 @@ export default function ContactForm() {
             className={fieldClass('email')}
           />
           {errors.email && (
-            <p id="contact-email-error" className="mt-1.5 text-xs text-red-600">
+            <p id="contact-email-error" className="mt-1.5 text-xs text-accent">
               {errors.email}
             </p>
           )}
@@ -189,7 +189,7 @@ export default function ContactForm() {
               aria-invalid={Boolean(errors.service)}
               aria-describedby={errors.service ? 'contact-service-error' : undefined}
               className={`${fieldClass('service')} cursor-pointer appearance-none pr-10 ${
-                form.service ? '' : 'text-stone-400'
+                form.service ? '' : 'text-muted-text'
               }`}
             >
               <option value="">Select a service</option>
@@ -206,7 +206,7 @@ export default function ContactForm() {
             />
           </div>
           {errors.service && (
-            <p id="contact-service-error" className="mt-1.5 text-xs text-red-600">
+            <p id="contact-service-error" className="mt-1.5 text-xs text-accent">
               {errors.service}
             </p>
           )}
@@ -226,7 +226,7 @@ export default function ContactForm() {
               aria-invalid={Boolean(errors.businessCategory)}
               aria-describedby={errors.businessCategory ? 'contact-category-error' : undefined}
               className={`${fieldClass('businessCategory')} cursor-pointer appearance-none pr-10 ${
-                form.businessCategory ? '' : 'text-stone-400'
+                form.businessCategory ? '' : 'text-muted-text'
               }`}
             >
               <option value="">Select a category</option>
@@ -243,7 +243,7 @@ export default function ContactForm() {
             />
           </div>
           {errors.businessCategory && (
-            <p id="contact-category-error" className="mt-1.5 text-xs text-red-600">
+            <p id="contact-category-error" className="mt-1.5 text-xs text-accent">
               {errors.businessCategory}
             </p>
           )}
@@ -269,7 +269,7 @@ export default function ContactForm() {
           className={`${fieldClass('message')} resize-none`}
         />
         <div className="mt-1.5 flex items-start justify-between gap-3">
-          <p id="contact-message-error" className="text-xs text-red-600">
+          <p id="contact-message-error" className="text-xs text-accent">
             {errors.message}
           </p>
           <span className="shrink-0 text-[11px] text-muted-text">
@@ -293,7 +293,7 @@ export default function ContactForm() {
       </div>
 
       {formError && (
-        <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+        <p role="alert" className="rounded-xl border border-accent/30 bg-accent/10 px-4 py-3 text-sm text-accent">
           {formError}
         </p>
       )}

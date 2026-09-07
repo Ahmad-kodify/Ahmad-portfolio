@@ -16,9 +16,15 @@ const edgeFade: CSSProperties = {
 export default function IndustriesMarquee() {
   return (
     <section id="industries" aria-label="Industries I have built for" className="bg-primary-bg pt-2 pb-8">
-      <p className="mb-5 text-center text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-text">
-        INDUSTRIES I'VE BUILT FOR
-      </p>
+      <div className="mb-6 px-6 text-center space-y-2">
+        <p className="text-[10px] uppercase tracking-[0.2em] font-semibold text-accent">
+          INDUSTRIES I SERVE
+        </p>
+        <p className="mx-auto max-w-2xl font-editorial text-lg sm:text-xl md:text-2xl font-medium tracking-tight text-primary-text">
+          Digital solutions &amp; SaaS platforms that{' '}
+          <span className="text-accent">move your business forward.</span>
+        </p>
+      </div>
 
       <div className="industries-marquee overflow-hidden" style={edgeFade}>
         <div className="industries-track flex w-max">

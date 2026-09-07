@@ -64,12 +64,12 @@ export default function Certifications() {
             {/* Elegant double-border frame representing a real gallery frame */}
             <div className="relative group cursor-pointer" onClick={() => setIsZoomed(true)}>
               {/* Outer frame styling */}
-              <div className="bg-stone-50 border-[16px] border-[#EFEAE2] shadow-2xl p-6 sm:p-10 max-w-lg w-full rounded-2xl transition-transform duration-500 hover:scale-[1.01] hover:shadow-soft">
+              <div className="bg-surface border-[16px] border-hover-bg shadow-2xl p-6 sm:p-10 max-w-lg w-full rounded-2xl transition-transform duration-500 hover:scale-[1.01] hover:shadow-soft">
                 {/* Inner double thin border line */}
                 <div className="border border-borders p-4 sm:p-6 bg-white relative flex flex-col items-center text-center rounded-xl">
                   
                   {/* Actual certificate image */}
-                  <div className="w-full aspect-[4/3] relative overflow-hidden bg-stone-100 border border-borders/40 mb-6 flex justify-center items-center rounded-lg">
+                  <div className="w-full aspect-[4/3] relative overflow-hidden bg-hover-bg border border-borders/40 mb-6 flex justify-center items-center rounded-lg">
                     <img
                       src="/ncra-certificate.jpeg"
                       alt="NCRA Web Development Internship Certificate"
@@ -84,7 +84,7 @@ export default function Certifications() {
                     {/* Fallback View */}
                     <div
                       id="cert-fallback"
-                      className="absolute inset-0 flex-col items-center justify-center p-4 bg-stone-50 border border-borders hidden"
+                      className="absolute inset-0 flex-col items-center justify-center p-4 bg-surface border border-borders hidden"
                     >
                       <Award size={48} className="text-accent mb-2" />
                       <span className="font-editorial text-lg font-bold text-primary-text">NCRA — MUST</span>

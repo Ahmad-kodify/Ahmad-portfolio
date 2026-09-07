@@ -137,7 +137,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
       };
 
   const inputClass =
-    'w-full rounded-xl border border-borders bg-white px-4 py-3 text-sm text-primary-text placeholder-stone-300 transition-colors focus:border-primary-text focus:outline-none focus:ring-0';
+    'w-full rounded-xl border border-borders bg-white px-4 py-3 text-sm text-primary-text placeholder-muted-text transition-colors focus:border-primary-text focus:outline-none focus:ring-0';
 
   return (
     <AnimatePresence>
@@ -159,7 +159,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
             aria-labelledby="feedback-modal-title"
             {...panelMotion}
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10 max-h-[calc(100dvh-3rem)] w-full max-w-lg overflow-y-auto rounded-2xl border border-borders bg-surface p-6 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.28)] sm:p-8"
+            className="relative z-10 max-h-[calc(100dvh-3rem)] w-full max-w-lg overflow-y-auto rounded-2xl border border-borders bg-surface p-6 shadow-[0_20px_60px_-20px_rgba(15,15,15,0.28)] sm:p-8"
           >
             <button
               type="button"
@@ -227,7 +227,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                       className={inputClass}
                     />
                     {fieldErrors.name && (
-                      <p id="feedback-name-error" className="mt-1.5 text-xs text-red-600">
+                      <p id="feedback-name-error" className="mt-1.5 text-xs text-accent">
                         {fieldErrors.name}
                       </p>
                     )}
@@ -256,7 +256,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                     <div className="mt-1.5 flex items-start justify-between gap-3">
                       <p
                         id="feedback-message-error"
-                        className={`text-xs ${fieldErrors.feedback ? 'text-red-600' : 'sr-only'}`}
+                        className={`text-xs ${fieldErrors.feedback ? 'text-accent' : 'sr-only'}`}
                       >
                         {fieldErrors.feedback}
                       </p>
@@ -304,7 +304,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                   </div>
 
                   {formError && (
-                    <p role="alert" className="text-sm text-red-600">
+                    <p role="alert" className="text-sm text-accent">
                       {formError}
                     </p>
                   )}

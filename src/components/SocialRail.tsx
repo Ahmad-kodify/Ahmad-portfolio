@@ -129,8 +129,8 @@ export default function SocialRail() {
         transition={{ delay: 0.4, duration: 0.6 }}
         className={`fixed left-0 top-1/3 z-50 hidden sm:flex flex-col items-center gap-1.5 p-2 text-white select-none transition-all duration-500 ${
           isScrolled
-            ? 'ml-1.5 rounded-full bg-primary-text/95 backdrop-blur-md ring-1 ring-white/10 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.45)]'
-            : 'ml-0 rounded-l-none rounded-r-[20px] bg-primary-text shadow-[0_18px_36px_-16px_rgba(0,0,0,0.45)]'
+            ? 'ml-1.5 rounded-full bg-primary-text/95 backdrop-blur-md ring-1 ring-white/10 shadow-[0_16px_40px_-12px_rgba(15,15,15,0.45)]'
+            : 'ml-0 rounded-l-none rounded-r-[20px] bg-primary-text shadow-[0_18px_36px_-16px_rgba(15,15,15,0.45)]'
         }`}
       >
         {socialProfiles.map((data) => (

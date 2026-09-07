@@ -57,7 +57,7 @@ export default function Projects() {
 
       </div>
 
-      <CurveDivider targetRef={sectionRef} fill="#F5F3EE" />
+      <CurveDivider targetRef={sectionRef} fill="#f0ede8" />
     </section>
   );
 }
@@ -98,7 +98,7 @@ function MonitorFrame({ activeProjectId }: MonitorFrameProps) {
   }, [isLightboxOpen, shots.length]);
 
   const arrowClass =
-    'absolute top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-primary-text text-white shadow-[0_10px_24px_-8px_rgba(0,0,0,0.5)] ring-1 ring-white/15 transition-all duration-300 hover:bg-accent hover:text-primary-text hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent cursor-pointer';
+    'absolute top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-primary-text text-white shadow-[0_10px_24px_-8px_rgba(15,15,15,0.5)] ring-1 ring-white/15 transition-all duration-300 hover:bg-accent hover:text-primary-text hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent cursor-pointer';
 
   return (
     <div className="w-full max-w-[460px] md:max-w-[500px] mx-auto flex flex-col items-center relative">
@@ -125,22 +125,22 @@ function MonitorFrame({ activeProjectId }: MonitorFrameProps) {
       )}
 
       {/* Mockup Monitor Screen Frame */}
-      <div className="w-full aspect-[16/10] bg-neutral-900 border-[10px] md:border-[14px] border-neutral-950 rounded-2xl shadow-2xl relative overflow-hidden flex flex-col">
+      <div className="w-full aspect-[16/10] bg-primary-text border-[10px] md:border-[14px] border-primary-text rounded-2xl shadow-2xl relative overflow-hidden flex flex-col">
         {/* Top Browser Bar */}
-        <div className="h-6 bg-neutral-950 px-4 flex items-center justify-between shrink-0 select-none border-b border-neutral-900">
+        <div className="h-6 bg-primary-text px-4 flex items-center justify-between shrink-0 select-none border-b border-white/10">
           <div className="flex gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-red-500/80"></span>
-            <span className="w-2 h-2 rounded-full bg-yellow-500/80"></span>
-            <span className="w-2 h-2 rounded-full bg-green-500/80"></span>
+            <span className="w-2 h-2 rounded-full bg-accent/80"></span>
+            <span className="w-2 h-2 rounded-full bg-white/40"></span>
+            <span className="w-2 h-2 rounded-full bg-white/25"></span>
           </div>
-          <div className="text-[9px] text-stone-500 font-mono tracking-wider truncate max-w-[200px]">
+          <div className="text-[9px] text-muted-text font-mono tracking-wider truncate max-w-[200px]">
             {activeProject?.mockupUrl}
           </div>
           <div className="w-10"></div>
         </div>
 
         {/* Content Area with smooth cross-fade animation */}
-        <div className="flex-1 bg-neutral-50 relative overflow-hidden select-none">
+        <div className="flex-1 bg-surface relative overflow-hidden select-none">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeProjectId}
@@ -184,17 +184,17 @@ function MonitorFrame({ activeProjectId }: MonitorFrameProps) {
       {/* Visually Prominent LED Monitor Stand/Base */}
       <div className="relative flex flex-col items-center select-none pointer-events-none w-full mt-[-1px]">
         {/* Stem (Silver / Brushed Metal Gradient) */}
-        <div className="w-14 h-14 bg-gradient-to-b from-stone-400 via-stone-300 to-stone-400/90 shadow-[inset_0_2px_4px_rgba(0,0,0,0.15)] relative">
+        <div className="w-14 h-14 bg-gradient-to-b from-primary-text/35 via-primary-text/15 to-primary-text/35 shadow-[inset_0_2px_4px_rgba(15,15,15,0.15)] relative">
           <div className="absolute inset-y-0 left-1/2 w-[1px] bg-white/30 -translate-x-1/2"></div>
         </div>
         
         {/* Stand Base Plate */}
-        <div className="w-44 h-3.5 bg-gradient-to-r from-stone-500 via-stone-300 to-stone-500 rounded-t-lg shadow-[0_4px_10px_rgba(0,0,0,0.15)] relative">
+        <div className="w-44 h-3.5 bg-gradient-to-r from-primary-text/45 via-primary-text/15 to-primary-text/45 rounded-t-lg shadow-[0_4px_10px_rgba(15,15,15,0.15)] relative">
           <div className="absolute inset-x-0 top-0 h-[1px] bg-white/40"></div>
         </div>
         
         {/* Soft natural floor shadow cast by monitor and stand */}
-        <div className="w-56 h-10 bg-black/15 rounded-full blur-lg -mt-3.5 z-[-1]"></div>
+        <div className="w-56 h-10 bg-primary-text/15 rounded-full blur-lg -mt-3.5 z-[-1]"></div>
       </div>
 
       {/* Zoom lightbox — portaled to <body> so no ancestor stacking context
@@ -208,7 +208,7 @@ function MonitorFrame({ activeProjectId }: MonitorFrameProps) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={() => setIsLightboxOpen(false)}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4 md:p-10 cursor-zoom-out"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-primary-text/90 backdrop-blur-sm p-4 md:p-10 cursor-zoom-out"
           >
             <button
               type="button"
@@ -274,7 +274,7 @@ function MonitorFrame({ activeProjectId }: MonitorFrameProps) {
 //    Drop the referenced images into `public/` (ads.png, arascow.png, ...).
 function ScreenshotMockup({ src, name }: { src: string; name: string }) {
   return (
-    <div className="w-full h-full bg-stone-100 relative">
+    <div className="w-full h-full bg-hover-bg relative">
       <img
         src={src}
         alt={`${name} website screenshot`}
@@ -305,7 +305,7 @@ function TayfaMockup() {
           />
           <Search className="w-2.5 h-2.5 text-stone-400 absolute left-2 top-1.5" />
         </div>
-        <div className="w-4 h-4 bg-stone-100 rounded-full flex items-center justify-center border border-stone-200">
+        <div className="w-4 h-4 bg-hover-bg rounded-full flex items-center justify-center border border-stone-200">
           <span className="text-[7px] font-bold">3</span>
         </div>
       </div>
@@ -459,7 +459,7 @@ function ProjectCard({ project, onVisible }: ProjectCardProps) {
     >
       {/* Category Pill/Badge + optional location tag */}
       <div className="flex items-center gap-3 flex-wrap">
-        <span className="inline-flex px-3 py-1 text-xs font-semibold text-secondary-text bg-stone-100 rounded-full border border-borders/50">
+        <span className="inline-flex px-3 py-1 text-xs font-semibold text-secondary-text bg-hover-bg rounded-full border border-borders/50">
           {project.category}
         </span>
         {project.country && (
@@ -475,9 +475,7 @@ function ProjectCard({ project, onVisible }: ProjectCardProps) {
           <span>{project.name}</span>
           {project.badge && (
             <span className={`text-[9px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-full border ${
-              project.badge === 'Live' 
-                ? 'bg-emerald-50 text-emerald-700 border-emerald-250/30' 
-                : 'bg-orange-50 text-orange-700 border-orange-250/30'
+              'bg-accent/10 text-accent border-accent/25'
             }`}>
               {project.badge}
             </span>
@@ -496,7 +494,7 @@ function ProjectCard({ project, onVisible }: ProjectCardProps) {
           {project.tech.map((item) => (
             <span
               key={item}
-              className="px-3 py-1 text-xs font-medium text-secondary-text bg-stone-100 rounded-full border border-borders/50"
+              className="px-3 py-1 text-xs font-medium text-secondary-text bg-hover-bg rounded-full border border-borders/50"
             >
               {item}
             </span>

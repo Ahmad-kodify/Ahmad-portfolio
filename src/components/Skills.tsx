@@ -76,7 +76,7 @@ export default function Skills() {
             <motion.div
               key={category.title}
               variants={cardVariants}
-              whileHover={{ y: -4, boxShadow: '0 10px 30px rgba(0,0,0,0.04)' }}
+              whileHover={{ y: -4, boxShadow: '0 10px 30px rgba(15,15,15,0.04)' }}
               className="bg-white border border-borders p-8 rounded-2xl flex flex-col justify-between hover:border-accent transition-all duration-300 group shadow-soft"
             >
               <div className="space-y-6">

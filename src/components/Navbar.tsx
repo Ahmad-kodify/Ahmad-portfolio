@@ -44,8 +44,8 @@ export default function Navbar() {
         <div
           className={`relative flex items-center gap-1 text-white transition-all duration-500 p-2 pr-2 xl:pl-3 ${
             isScrolled
-              ? 'mt-1.5 rounded-full bg-primary-text/95 backdrop-blur-md ring-1 ring-white/10 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.45)]'
-              : 'mt-0 rounded-t-none rounded-b-[26px] bg-primary-text shadow-[0_18px_36px_-16px_rgba(0,0,0,0.45)]'
+              ? 'mt-1.5 rounded-full bg-primary-text/95 backdrop-blur-md ring-1 ring-white/10 shadow-[0_16px_40px_-12px_rgba(15,15,15,0.45)]'
+              : 'mt-0 rounded-t-none rounded-b-[26px] bg-primary-text shadow-[0_18px_36px_-16px_rgba(15,15,15,0.45)]'
           }`}
         >
           {/* Logo */}
@@ -53,9 +53,13 @@ export default function Navbar() {
             href="#home"
             className="flex items-center gap-2.5 shrink-0 pl-1 pr-2 hover:opacity-85 transition-opacity"
           >
-            <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-gradient-to-br from-accent to-[#a8874f] text-[12px] font-bold text-primary-text shadow-inner">
-              MA
-            </span>
+            <img
+              src="/profile.webp"
+              alt="Muhammad Ahmad"
+              width={32}
+              height={32}
+              className="h-8 w-8 rounded-[10px] object-cover object-top ring-1 ring-white/20"
+            />
             <span className="text-[15px] font-bold tracking-tight font-editorial">
               Ahmad<span className="text-accent">.</span>
             </span>
@@ -86,10 +90,10 @@ export default function Navbar() {
           {/* Desktop CTA — white pill, mirrors the reference button */}
           <a
             href="#contact"
-            className="group hidden xl:inline-flex shrink-0 items-center gap-1.5 rounded-full bg-white pl-4 pr-1.5 py-1.5 ml-1 text-[13px] font-semibold text-primary-text transition-colors duration-300 hover:bg-accent"
+            className="group hidden xl:inline-flex shrink-0 items-center gap-1.5 rounded-full bg-white pl-4 pr-1.5 py-1.5 ml-1 text-[13px] font-semibold text-primary-text transition-colors duration-300 hover:bg-white/90"
           >
             Let's Build
-            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary-text text-white transition-transform duration-300 group-hover:rotate-45">
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent text-white transition-transform duration-300 group-hover:rotate-45">
               <ArrowUpRight size={13} strokeWidth={2.4} />
             </span>
           </a>

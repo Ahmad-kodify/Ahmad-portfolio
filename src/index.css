@@ -1,21 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
+/* ── THE 5 BRAND TOKENS ─────────────────────────────────────────────
+   Every colour on the site derives from these five (plus rgba tints).
+   60% --bg/--card surfaces · 30% --ink · max 10% --accent touches. */
+:root {
+  --bg: #f0ede8; /* cream — page background */
+  --ink: #0f0f0f; /* near-black — text, dark surfaces */
+  --accent: #e8602c; /* terracotta — THE brand accent */
+  --muted: #a8a29b; /* secondary text, captions */
+  --card: #ffffff; /* card surfaces */
+}
+
 @theme {
-  --color-primary-bg: #F5F3EE;
-  --color-surface: #FFFFFF;
-  --color-primary-text: #1A1A1A;
-  --color-secondary-text: #6E6D6A;
-  --color-muted-text: #7A7A7A;
-  --color-borders: #E7E2D9;
-  --color-hover-bg: #EFEAE2;
-  --color-accent: #C9A875;
-  --color-soft-shadow: rgba(0, 0, 0, 0.04);
-  
-  /* Dark mode contrast sections */
-  --color-dark-bg: #131313;
-  --color-dark-surface: #1C1C1C;
-  --color-dark-border: #2A2A2A;
+  /* Existing utility names, remapped onto the 5 brand tokens so every
+     bg-primary-bg / text-accent / border-borders class site-wide resolves
+     to the new palette. */
+  --color-primary-bg: #f0ede8; /* --bg */
+  --color-surface: #ffffff; /* --card */
+  --color-primary-text: #0f0f0f; /* --ink */
+  --color-secondary-text: #a8a29b; /* --muted */
+  --color-muted-text: #a8a29b; /* --muted */
+  --color-borders: rgba(15, 15, 15, 0.08); /* ink tint */
+  --color-hover-bg: rgba(15, 15, 15, 0.06); /* ink tint */
+  --color-accent: #e8602c; /* --accent */
+  --color-soft-shadow: rgba(15, 15, 15, 0.04);
+
+  /* Dark contrast sections — all resolve to --ink */
+  --color-dark-bg: #0f0f0f;
+  --color-dark-surface: #0f0f0f;
+  --color-dark-border: rgba(255, 255, 255, 0.1);
 
   --font-editorial: "Outfit", sans-serif;
   --font-sans: "Inter", sans-serif;

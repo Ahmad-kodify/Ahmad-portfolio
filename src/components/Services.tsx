@@ -26,40 +26,14 @@ const cloudMask: CSSProperties = {
   maskRepeat: 'no-repeat',
 };
 
-type Variant = 'dark' | 'accent' | 'light';
-
-const VARIANT_STYLES: Record<
-  Variant,
-  {
-    card: string;
-    title: string;
-    description: string;
-    /** Painted cloud behind the photo. */
-    backdrop: string;
-    arrow: string;
-  }
-> = {
-  dark: {
-    card: 'bg-primary-text text-white',
-    title: 'text-white',
-    description: 'text-white/70',
-    backdrop: 'bg-white/12',
-    arrow: 'bg-primary-text text-white group-hover:bg-accent group-hover:text-primary-text',
-  },
-  accent: {
-    card: 'bg-accent text-primary-text',
-    title: 'text-primary-text',
-    description: 'text-primary-text/75',
-    backdrop: 'bg-primary-text/85',
-    arrow: 'bg-accent text-white group-hover:bg-primary-text',
-  },
-  light: {
-    card: 'bg-stone-100 text-primary-text border border-borders',
-    title: 'text-primary-text',
-    description: 'text-secondary-text',
-    backdrop: 'bg-stone-300/70',
-    arrow: 'bg-stone-200 text-primary-text group-hover:bg-primary-text group-hover:text-white',
-  },
+/* One uniform card treatment — white surface, ink title, muted copy.
+   Accent appears only on the arrow CTA and the hover border. */
+const CARD_STYLES = {
+  card: 'bg-surface text-primary-text border border-borders shadow-soft hover:border-accent/60',
+  title: 'text-primary-text',
+  description: 'text-secondary-text',
+  backdrop: 'bg-primary-text/10',
+  arrow: 'bg-accent text-white group-hover:bg-primary-text',
 };
 
 export default function Services() {
@@ -85,11 +59,19 @@ export default function Services() {
           </p>
         </motion.div>
 
-        {/* 3 / 2 / 1 responsive card grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {services.map((service, index) => (
-            <ServiceCard key={service.id} service={service} index={index} />
-          ))}
+        {/* Rows of 4 / 3 / 2 equally-sized cards, each row centred.
+            Cards keep the same width in every row (1/4 of the row on desktop). */}
+        <div className="flex flex-col gap-5">
+          {[services.slice(0, 4), services.slice(4, 7), services.slice(7, 9)].map((row, rowIndex) => {
+            const offset = [0, 4, 7][rowIndex];
+            return (
+              <div key={rowIndex} className="flex flex-wrap justify-center gap-5">
+                {row.map((service, i) => (
+                  <ServiceCard key={service.id} service={service} index={offset + i} />
+                ))}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -97,8 +79,7 @@ export default function Services() {
 }
 
 function ServiceCard({ service, index }: { service: Service; index: number }) {
-  const variant: Variant = (['dark', 'accent', 'light'] as const)[index % 3];
-  const styles = VARIANT_STYLES[variant];
+  const styles = CARD_STYLES;
 
   return (
     <motion.article
@@ -106,14 +87,14 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.7, delay: (index % 3) * 0.08, ease: [0.16, 1, 0.3, 1] }}
-      className={`group relative flex flex-col rounded-[26px] p-6 pb-8 transition-all duration-300 ${styles.card}`}
+      className={`group relative flex flex-col rounded-[26px] p-6 pb-8 transition-all duration-300 w-full md:w-[calc(50%-10px)] lg:w-[calc(25%-15px)] ${styles.card}`}
     >
       <ServiceImage service={service} backdrop={styles.backdrop} flip={index % 2 === 1} />
 
       <h3 className={`mt-5 font-editorial text-[21px] font-semibold tracking-tight leading-snug ${styles.title}`}>
         {service.title}
       </h3>
-      <p className={`mt-2 pr-2 text-[13.5px] font-light leading-relaxed ${styles.description}`}>
+      <p className={`mt-2 pr-2 text-[14px] font-light leading-relaxed ${styles.description}`}>
         {service.description}
       </p>
 
@@ -180,7 +161,7 @@ function ServiceImage({
           {hasError ? (
             <div
               aria-hidden="true"
-              className="flex h-full w-full items-center justify-center bg-black/10 text-current/40"
+              className="flex h-full w-full items-center justify-center bg-primary-text/10 text-current/40"
             >
               <ImageIcon size={28} strokeWidth={1.5} className={flip ? '-scale-x-100' : ''} />
             </div>

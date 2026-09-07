@@ -55,7 +55,7 @@ export default function SocialProfileCard({ data, onClose }: SocialProfileCardPr
   const Icon = theme.icon;
 
   return (
-    <div className="w-[min(20rem,calc(100vw-3rem))] overflow-hidden rounded-2xl border border-borders bg-surface shadow-[0_12px_32px_-12px_rgba(0,0,0,0.18)]">
+    <div className="w-[min(20rem,calc(100vw-3rem))] overflow-hidden rounded-2xl border border-borders bg-surface shadow-[0_12px_32px_-12px_rgba(15,15,15,0.18)]">
       {/* Platform accent strip */}
       <div className={`h-1 w-full ${theme.accentBar}`} />
 

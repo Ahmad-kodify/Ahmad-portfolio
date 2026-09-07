@@ -74,7 +74,7 @@ export default function About() {
                 <motion.div
                   variants={blockVariants}
                   key={item.title}
-                  whileHover={{ y: -4, boxShadow: '0 10px 30px rgba(0,0,0,0.04)' }}
+                  whileHover={{ y: -4, boxShadow: '0 10px 30px rgba(15,15,15,0.04)' }}
                   className="bg-primary-bg/30 border border-borders p-8 rounded-2xl space-y-3 transition-all duration-300 group hover:border-accent hover:bg-white"
                 >
                   <span className="text-[11px] font-mono text-accent font-semibold block">

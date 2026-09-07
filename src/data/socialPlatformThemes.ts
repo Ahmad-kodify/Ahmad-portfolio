@@ -21,40 +21,39 @@ export interface PlatformTheme {
   iconActive: string;
 }
 
-export const INSTAGRAM_GRADIENT =
-  'bg-[linear-gradient(90deg,#833AB4_0%,#C13584_35%,#E1306C_60%,#F56040_82%,#FCAF45_100%)]';
+export const INSTAGRAM_GRADIENT = 'bg-accent';
 
 export const platformThemes: Record<SocialPlatform, PlatformTheme> = {
   linkedin: {
     icon: Linkedin,
-    accentBar: 'bg-[#0A66C2]',
-    avatarRing: 'ring-2 ring-[#0A66C2]/25',
-    cta: 'bg-[#0A66C2] text-white hover:bg-[#08529c]',
-    badge: 'text-[#0A66C2]',
-    iconActive: 'text-[#0A66C2]',
+    accentBar: 'bg-accent',
+    avatarRing: 'ring-2 ring-accent/30',
+    cta: 'bg-primary-text text-white hover:bg-accent',
+    badge: 'text-accent',
+    iconActive: 'text-accent',
   },
   facebook: {
     icon: Facebook,
-    accentBar: 'bg-[#1877F2]',
-    avatarRing: 'ring-2 ring-[#1877F2]/25',
-    cta: 'bg-[#1877F2] text-white hover:bg-[#1361c9]',
-    badge: 'text-[#1877F2]',
-    iconActive: 'text-[#1877F2]',
+    accentBar: 'bg-accent',
+    avatarRing: 'ring-2 ring-accent/30',
+    cta: 'bg-primary-text text-white hover:bg-accent',
+    badge: 'text-accent',
+    iconActive: 'text-accent',
   },
   instagram: {
     icon: Instagram,
     accentBar: INSTAGRAM_GRADIENT,
-    avatarRing: 'ring-2 ring-[#C13584]/30',
-    cta: `${INSTAGRAM_GRADIENT} text-white hover:opacity-90`,
-    badge: 'text-[#C13584]',
-    iconActive: 'text-[#C13584]',
+    avatarRing: 'ring-2 ring-accent/30',
+    cta: 'bg-primary-text text-white hover:bg-accent',
+    badge: 'text-accent',
+    iconActive: 'text-accent',
   },
   upwork: {
     icon: UpworkIcon,
-    accentBar: 'bg-[#14A800]',
-    avatarRing: 'ring-2 ring-[#14A800]/25',
-    cta: 'bg-[#14A800] text-white hover:bg-[#108600]',
-    badge: 'text-[#14A800]',
-    iconActive: 'text-[#6FDA44]',
+    accentBar: 'bg-accent',
+    avatarRing: 'ring-2 ring-accent/30',
+    cta: 'bg-primary-text text-white hover:bg-accent',
+    badge: 'text-accent',
+    iconActive: 'text-accent',
   },
 };

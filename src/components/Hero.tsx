@@ -73,13 +73,13 @@ export default function Hero() {
               >
                 {/* Browser bar */}
                 <div className="flex items-center gap-1 border-b border-borders/50 pb-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-400"></span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-yellow-400"></span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-400"></span>
-                  <div className="h-2 bg-stone-100/80 rounded w-16 ml-2"></div>
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent/80"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary-text/25"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary-text/15"></span>
+                  <div className="h-2 bg-primary-text/10 rounded w-16 ml-2"></div>
                 </div>
                 {/* Visual Content Block — intro-video style with the real photo */}
-                <div className="h-28 lg:h-32 bg-emerald-100/60 rounded-xl relative flex items-center justify-center overflow-hidden">
+                <div className="h-28 lg:h-32 bg-hover-bg rounded-xl relative flex items-center justify-center overflow-hidden">
                   <img
                     src="/profile.webp"
                     alt="Muhammad Ahmad"
@@ -101,24 +101,24 @@ export default function Hero() {
               >
                 {/* Browser bar */}
                 <div className="flex items-center gap-1 border-b border-borders/50 pb-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-400"></span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-yellow-400"></span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-400"></span>
-                  <div className="h-2 bg-stone-100/80 rounded w-16 ml-2"></div>
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent/80"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary-text/25"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary-text/15"></span>
+                  <div className="h-2 bg-primary-text/10 rounded w-16 ml-2"></div>
                 </div>
                 {/* Visual Content Block — profile-card style, B&W close-crop variant of the photo */}
-                <div className="h-28 lg:h-32 bg-stone-50/50 rounded-xl p-3 flex items-center gap-3">
+                <div className="h-28 lg:h-32 bg-hover-bg rounded-xl p-3 flex items-center gap-3">
                   <img
                     src="/profile.webp"
                     alt="Muhammad Ahmad portrait"
                     className="h-16 w-16 lg:h-20 lg:w-20 shrink-0 rounded-full object-cover object-top grayscale scale-100 ring-2 ring-accent/60 shadow-sm"
                   />
                   <div className="flex-1 min-w-0 space-y-1.5">
-                    <div className="h-1.5 bg-stone-300 w-3/4 rounded"></div>
-                    <div className="h-1 bg-stone-200 w-full rounded"></div>
+                    <div className="h-1.5 bg-primary-text/15 w-3/4 rounded"></div>
+                    <div className="h-1 bg-primary-text/10 w-full rounded"></div>
                     <div className="flex gap-1.5 pt-0.5">
-                      <div className="w-8 h-4 bg-[#B5E2FA]/50 rounded-md"></div>
-                      <div className="w-10 h-4 bg-[#C5E0B4]/50 rounded-md"></div>
+                      <div className="w-8 h-4 bg-accent/15 rounded-md"></div>
+                      <div className="w-10 h-4 bg-primary-text/10 rounded-md"></div>
                     </div>
                   </div>
                 </div>
